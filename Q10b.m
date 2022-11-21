@@ -1,22 +1,30 @@
-%Kutta
+% Kutta
 
 clc
 clear all
-f=@(t,y)-y+2*cos(t);
+
+f=@(x,y) -y+2*cos(x);
+a=0; b=1; h=0.2; n=abs((b-a)/h);
+
+x(1)=a;
 y(1)=1;
-a=0;
-b=1;
-h=0.2;
-t=a;
-n=abs(b-a)/h;
-for i=1:n
-    t(i+1)=t(i)+h ;
-    k1=h*f(t(i),y(i));
-    k2=h*f(t(i)+(h/2),y(i)+(k1/2));
-    k3=h*f(t(i)+(h/2),y(i)+(k2/2));
-    k4=h*f(t(i)+h,y(i)+k3);
-    k=(k1+2*(k2+k3)+k4)/6;
-    y(i+1)=y(i)+k;
+for i=1:n   % [y1(1), y2, y3, y4,...yn+1] : index 1 -> x0, y0 which we already have
+    k1 = h*f(x(i),y(i));
+    k2 = h*f(x(i)+h/2,y(i)+k1/2);
+    k3 = h*f(x(i)+h/2,y(i)+k2/2);
+    k4 = h*f(x(i)+h,y(i)+k3);
+    y(i+1) = y(i)+(k1+2*(k2+k3)+k4)/6;
+    x(i+1) = x(i) + h;
+    
 end
-y
-k
+for i=1:n+1
+    fprintf('f(%f) = %f \n',x(i),y(i));
+end
+
+%{
+Better to declare :
+x=zeros(n+1);
+y=zeros(n+1);
+above
+%}
+

@@ -1,4 +1,4 @@
-% FIXED POINT ITERATION
+ % FIXED POINT ITERATION
 
 clc
 clear all
